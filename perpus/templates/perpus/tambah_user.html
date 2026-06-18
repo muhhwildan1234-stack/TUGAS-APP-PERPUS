@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah User - Sistem Peminjaman Buku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#f8fafc] flex h-screen overflow-hidden select-none">
+
+    <aside class="w-[280px] bg-[#050b14] text-white flex flex-col justify-between p-6 shrink-0 border-r border-slate-900">
+        <div>
+            <div class="flex items-center gap-4 mb-10 mt-2">
+                <div class="w-12 h-12 rounded-full bg-[#1e73be] flex items-center justify-center font-bold text-xl text-white shadow-sm shrink-0">
+                    P
+                </div>
+                <div>
+                    <p class="text-[11px] text-slate-400 tracking-[0.2em] font-semibold leading-none mb-1">SIPUSTAKA</p>
+                    <h1 class="text-lg font-bold leading-tight tracking-wide text-slate-100">Sistem Peminjaman Buku</h1>
+                </div>
+            </div>
+
+            <nav class="space-y-1.5">
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-[#0f172a]/50 transition">
+                    <i class="fa-solid fa-table-columns text-base w-5 text-center"></i>
+                    <span class="text-[15px]">Dashboard</span>
+                </a>
+                <a href="{% url 'daftar_user' %}" class="flex items-center gap-3.5 bg-[#0f172a] px-4 py-3 rounded-xl text-slate-200 font-medium border border-slate-800/40 transition">
+                    <i class="fa-solid fa-users text-base text-slate-400 w-5 text-center"></i>
+                    <span class="text-[15px]">User</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="bg-[#0c1322] border border-slate-800/60 p-5 rounded-2xl mb-2">
+            <p class="text-xs text-slate-500 font-medium mb-1.5">Admin Aktif</p>
+            <p class="text-[15px] font-bold text-slate-200 tracking-wide">Budi Siregar</p>
+        </div>
+    </aside>
+
+    <main class="flex-1 p-10 overflow-y-auto flex flex-col items-start justify-start">
+        <div class="flex items-start gap-4 mb-8">
+            <a href="{% url 'daftar_user' %}" class="mt-1 text-slate-400 hover:text-slate-600 transition">
+                <i class="fa-solid fa-arrow-left text-xl"></i>
+            </a>
+            <div>
+                <p class="text-sm text-slate-400 font-medium tracking-wide">Kelola data user perpustakaan.</p>
+                <h2 class="text-2xl font-bold text-slate-900 mt-0.5">Tambah User</h2>
+            </div>
+        </div>
+
+        <div class="bg-white w-full max-w-[960px] rounded-3xl p-8 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)]">
+            <form action="{% url 'tambah_user' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    
+                    <div class="flex flex-col gap-2">
+                        <label for="nama" class="text-[14px] font-semibold text-slate-600">Nama</label>
+                        <input type="text" id="nama" name="nama" required
+                            class="bg-[#f8fafc]/80 border border-slate-100 rounded-2xl px-5 py-3.5 text-slate-800 placeholder-slate-300 focus:outline-none focus:border-blue-500/50 focus:bg-white transition">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="kelas" class="text-[14px] font-semibold text-slate-600">Kelas</label>
+                        <input type="text" id="kelas" name="kelas" placeholder="Contoh: XI IPA 1" required
+                            class="bg-[#f8fafc]/80 border border-slate-100 rounded-2xl px-5 py-3.5 text-slate-800 placeholder-slate-400/70 focus:outline-none focus:border-blue-500/50 focus:bg-white transition">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="nis" class="text-[14px] font-semibold text-slate-600">NIS</label>
+                        <input type="text" id="nis" name="nis" placeholder="Contoh: 2026005" required
+                            class="bg-[#f8fafc]/80 border border-slate-100 rounded-2xl px-5 py-3.5 text-slate-800 placeholder-slate-400/70 focus:outline-none focus:border-blue-500/50 focus:bg-white transition">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="status" class="text-[14px] font-semibold text-slate-600">Status</label>
+                        <div class="relative">
+                            <select id="status" name="status" required
+                                class="w-full bg-[#f8fafc]/80 border border-slate-100 rounded-2xl px-5 py-3.5 text-slate-800 appearance-none focus:outline-none focus:border-blue-500/50 focus:bg-white transition">
+                                <option value="aktif" selected>Aktif</option>
+                                <option value="nonaktif">Non-Aktif</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-slate-500 text-xs">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="border-t border-slate-100/80 pt-6 flex justify-end gap-3 mt-8">
+                    <a href="{% url 'daftar_user' %}" class="px-6 py-3 border border-slate-200 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition block">
+                        Batal
+                    </a>
+                    <button type="submit" class="px-6 py-3 bg-[#2563eb] rounded-xl text-sm font-semibold text-white hover:bg-blue-700 shadow-md shadow-blue-500/10 transition">
+                        Simpan User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

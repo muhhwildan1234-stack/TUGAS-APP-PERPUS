@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SIPUSTAKA - Daftar Buku</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#f4f7fc] font-sans antialiased flex min-h-screen">
+    <aside class="w-64 bg-[#090e21] text-gray-400 flex flex-col justify-between p-5 shrink-0">
+        <div>
+            <div class="mb-10 px-2">
+                <p class="text-xs tracking-widest text-gray-500 font-semibold uppercase">Sipustaka</p>
+                <h1 class="text-xl font-bold text-white mt-1">Sistem Peminjaman Buku</h1>
+            </div>
+            <nav class="space-y-2">
+                <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition">
+                    <i class="fa-solid fa-chart-pie text-sm"></i><span>Dashboard</span>
+                </a>
+                <a href="{% url 'daftar_buku' %}" class="flex items-center space-x-3 px-4 py-3 bg-[#131931] text-white rounded-xl transition">
+                    <i class="fa-solid fa-book text-sm"></i><span>Buku</span>
+                </a>
+                <a href="{% url 'peminjaman' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition">
+                    <i class="fa-solid fa-handshake text-sm"></i><span>Peminjaman</span>
+                </a>
+                <a href="{% url 'daftar_user' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition">
+                    <i class="fa-solid fa-users text-sm"></i><span>User</span>
+                </a>
+            </nav>
+        </div>
+        <div class="bg-[#131931] p-4 rounded-2xl text-white text-sm font-semibold">Budi Siregar</div>
+    </aside>
+
+    <main class="flex-1 p-8">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <span class="text-xs text-gray-400">Kelola data buku SIPUSTAKA.</span>
+                <h2 class="text-xl font-bold text-gray-800">Daftar Buku</h2>
+            </div>
+            <a href="{% url 'tambah_buku' %}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl flex items-center space-x-2 shadow-sm">
+                <i class="fa-solid fa-plus text-xs"></i><span>Tambah Buku</span>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 overflow-hidden">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="text-gray-400 text-xs uppercase border-b border-gray-100 pb-3">
+                        <th class="pb-3">ID</th>
+                        <th class="pb-3">Judul</th>
+                        <th class="pb-3">Pengarang</th>
+                        <th class="pb-3">Kategori</th>
+                        <th class="pb-3">Penerbit</th>
+                        <th class="pb-3">Tahun</th>
+                        <th class="pb-3">Rak</th>
+                        <th class="pb-3">Stok</th>
+                        <th class="pb-3 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700 divide-y divide-gray-50">
+                    {% for buku in buku_all %}
+                    <tr>
+                        <td class="py-4">{{ forloop.counter }}</td>
+                        <td class="py-4 font-medium text-gray-900">{{ buku.judul }}</td>
+                        <td class="py-4 text-gray-500">{{ buku.pengarang }}</td>
+                        <td class="py-4 text-gray-500">{{ buku.kategori|default:"Novel" }}</td>
+                        <td class="py-4 text-gray-500">{{ buku.penerbit }}</td>
+                        <td class="py-4 text-gray-500">{{ buku.tahun_terbit }}</td>
+                        <td class="py-4 font-mono text-xs text-gray-400">{{ buku.rak|default:"Rak A-01" }}</td>
+                        <td class="py-4">{{ buku.stok }}</td>
+                        <td class="py-4 text-center space-x-1">
+                            <a href="{% url 'detail_buku' buku.pk %}" class="text-gray-400 hover:text-gray-600 px-2 text-xs">Detail</a>
+                            <a href="{% url 'edit_buku' buku.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">Edit</a>
+                            <a href="{% url 'hapus_buku' buku.pk %}" class="bg-rose-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">Hapus</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

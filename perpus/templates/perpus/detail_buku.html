@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>Detail Buku</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#f4f7fc] p-8">
+    <div class="bg-white max-w-xl mx-auto rounded-2xl p-6 border border-gray-100 shadow-sm">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Detail Informasi Buku</h2>
+        <div class="space-y-3 text-sm text-gray-600">
+            <p><strong>Judul:</strong> {{ buku.judul }}</p>
+            <p><strong>Penulis:</strong> {{ buku.penulis }}</p>
+            <p><strong>Penerbit:</strong> {{ buku.penerbit }}</p>
+            <p><strong>Tahun Terbit:</strong> {{ buku.tahun_terbit }}</p>
+            <p><strong>Jumlah Stok:</strong> {{ buku.stok }} unit</p>
+        </div>
+        <div class="mt-6">
+            <a href="{% url 'daftar_buku' %}" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-xl text-sm font-semibold">Kembali</a>
+        </div>
+    </div>
+</body>
+</html>

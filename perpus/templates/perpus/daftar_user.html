@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPUSTAKA - Daftar User</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#f4f7fc] font-sans antialiased">
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-[#090e21] text-gray-400 flex flex-col justify-between p-5 shrink-0">
+            <div>
+                <div class="mb-10 px-2">
+                    <p class="text-xs tracking-widest text-gray-500 font-semibold uppercase">Sipustaka</p>
+                    <h1 class="text-xl font-bold text-white mt-1">Sistem Peminjaman Buku</h1>
+                </div>
+                <nav class="space-y-2">
+                    <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition duration-200">
+                        <i class="fa-solid fa-chart-pie text-sm"></i>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                    <a href="{% url 'daftar_buku' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition duration-200">
+                        <i class="fa-solid fa-book text-sm"></i>
+                        <span class="font-medium">Buku</span>
+                    </a>
+                    <a href="{% url 'peminjaman' %}" class="flex items-center space-x-3 px-4 py-3 hover:bg-[#131931] hover:text-white rounded-xl transition duration-200">
+                        <i class="fa-solid fa-handshake text-sm"></i>
+                        <span class="font-medium">Peminjaman</span>
+                    </a>
+                    <a href="{% url 'daftar_user' %}" class="flex items-center space-x-3 px-4 py-3 bg-[#131931] text-white rounded-xl transition duration-200">
+                        <i class="fa-solid fa-users text-sm"></i>
+                        <span class="font-medium">User</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="bg-[#131931] p-4 rounded-2xl flex flex-col">
+                <span class="text-xs text-gray-500">Admin Aktif</span>
+                <span class="text-sm font-semibold text-white mt-1">Budi Siregar</span>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Daftar Anggota / User</h2>
+                    <p class="text-xs text-gray-400 mt-1">Manajemen data siswa perpustakaan</p>
+                </div>
+                <a href="{% url 'tambah_user' %}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl flex items-center space-x-2 transition shadow-sm">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>Tambah User</span>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-xs overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-400 text-xs uppercase tracking-wider border-b border-gray-100">
+                            <th class="py-4 px-6 font-semibold">No</th>
+                            <th class="py-4 px-6 font-semibold">Nama</th>
+                            <th class="py-4 px-6 font-semibold">Kelas</th>
+                            <th class="py-4 px-6 font-semibold">NIS</th>
+                            <th class="py-4 px-6 font-semibold">Status</th>
+                            <th class="py-4 px-6 font-semibold text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-600 divide-y divide-gray-50">
+                        {% for user in users %}
+                        <tr class="hover:bg-gray-50/50 transition">
+                            <td class="py-4 px-6 font-medium text-gray-400">{{ forloop.counter }}</td>
+                            <td class="py-4 px-6 font-semibold text-gray-800">{{ user.nama }}</td>
+                            <td class="py-4 px-6">{{ user.kelas }}</td>
+                            <td class="py-4 px-6 font-mono text-xs">{{ user.nis }}</td>
+                            <td class="py-4 px-6">
+                                {% if user.status == 'Aktif' %}
+                                <span class="bg-emerald-50 text-emerald-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-100">Aktif</span>
+                                {% else %}
+                                <span class="bg-rose-50 text-rose-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-rose-100">Tidak Aktif</span>
+                                {% endif %}
+                            </td>
+                            <td class="py-4 px-6 text-center">-</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-8 text-center text-gray-400 text-sm">Belum ada data user terdaftar.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
